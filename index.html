@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lovestargram</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Top bar (Instagram-ish) -->
+  <header class="topbar" role="banner">
+    <div class="topbar__inner">
+      <button class="iconbtn" id="btnProfile" aria-label="프로필 보기">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm-8 9a8 8 0 0 1 16 0"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <a class="brand" href="#" aria-label="Lovestargram 홈">
+        <span class="brand__text">Lovestargram</span>
+      </a>
+
+      <div class="topbar__actions">
+        <button class="iconbtn" id="btnTheme" aria-label="테마 전환">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="iconbtn" id="btnShuffle" aria-label="피드 섞기">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M16 3h5v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M21 3l-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M4 20h5v-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M3 21l6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M4 4h6l10 10h0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M20 4h0" fill="none" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" role="main">
+    <!-- Profile header (like IG profile row) -->
+    <section class="hero" aria-label="캐릭터 헤더">
+      <div class="hero__left">
+        <div class="avatar">
+          <img id="avatarImg" src="y%20(1).png" alt="캐릭터 아바타" />
+        </div>
+      </div>
+
+      <div class="hero__right">
+        <div class="hero__top">
+          <div class="username" id="username">luna</div>
+          <button class="btn primary" id="btnFollow">Follow</button>
+          <button class="btn" id="btnAbout">About</button>
+        </div>
+
+        <div class="stats" aria-label="통계">
+          <div class="stat"><b id="statPosts">0</b><span>posts</span></div>
+          <div class="stat"><b id="statFollowers">0</b><span>followers</span></div>
+          <div class="stat"><b id="statFollowing">0</b><span>following</span></div>
+        </div>
+
+        <div class="bio" id="bio"></div>
+
+        <div class="chips" id="chips"></div>
+      </div>
+    </section>
+
+    <!-- Feed -->
+    <section class="feed" aria-label="피드">
+      <div class="feed__tabs">
+        <button class="tab is-active" aria-selected="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"
+              fill="none" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span>POSTS</span>
+        </button>
+      </div>
+
+      <div class="grid" id="grid"></div>
+    </section>
+  </main>
+
+  <!-- Photo modal -->
+  <div class="modal" id="photoModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close="true"></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-label="사진 보기">
+      <button class="iconbtn modal__close" data-close="true" aria-label="닫기">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6l12 12M18 6 6 18"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <div class="modal__body">
+        <div class="modal__media">
+          <img id="modalImg" alt="" />
+        </div>
+        <div class="modal__side">
+          <div class="modal__head">
+            <div class="miniAvatar" id="miniAvatar" aria-hidden="true"></div>
+            <div class="modal__who">
+              <div class="modal__user" id="modalUser">luna</div>
+              <div class="modal__sub" id="modalSub">—</div>
+            </div>
+          </div>
+
+          <div class="caption" id="modalCaption"></div>
+
+          <div class="metaRow">
+            <span class="meta" id="modalDate">—</span>
+            <span class="meta" id="modalTags">—</span>
+          </div>
+
+          <div class="actions">
+            <button class="action" id="btnLike">🤍 Like</button>
+            <button class="action" id="btnSave">⤓ Save</button>
+            <button class="action" id="btnSetCover">☰ Set as cover</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile modal (top-left profile button) -->
+  <div class="modal" id="profileModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close="true"></div>
+    <div class="profilePanel" role="dialog" aria-modal="true" aria-label="캐릭터 소개">
+      <button class="iconbtn modal__close" data-close="true" aria-label="닫기">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6l12 12M18 6 6 18"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <div class="profilePanel__top">
+        <div class="profilePanel__avatar">
+          <img id="profileAvatar" src="y%20(1).png" alt="캐릭터 이미지" />
+        </div>
+        <div class="profilePanel__meta">
+          <div class="profilePanel__name" id="profileName">유정</div>
+          <div class="profilePanel__title" id="profileTitle">유저를 좋아하는 캐릭터</div>
+        </div>
+      </div>
+
+      <div class="profilePanel__body" id="profileBody"></div>
+
+      <div class="profilePanel__list" id="profileFacts"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
